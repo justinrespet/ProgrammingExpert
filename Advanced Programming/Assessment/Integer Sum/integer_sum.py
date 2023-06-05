@@ -38,6 +38,8 @@ test9 = (2.4,)
 
 allTests = [test1, test2, test3, test4, test5, test6, test7, test8, test9]
 
+
+
 # flatten lists decorator
 # - This is going to involve the splat operator, but I'm not certain how exactly so
 # I'm going to play around with it
@@ -45,8 +47,6 @@ allTests = [test1, test2, test3, test4, test5, test6, test7, test8, test9]
 # that to the function?
 # - from the instructions, I can assume that I will receive no iterable other than a list,
 # and that I will not receive nested lists
-
-
 def flatten_lists(func):
     def wrapper(*args):
         returnList = []
@@ -66,9 +66,29 @@ def flatten_lists(func):
     return wrapper
 
 
+# convert_strings_to_int
+def convert_strings_to_int(func):
+    def wrapper(*args):
+        intList = []
+        for item in args:
+            if isinstance(item, int):
+                intList.append(item)
+            elif isinstance(item, str):
+                if item.isnumeric():
+                    intList.append(int(item))
+
+        return intList
+    return wrapper
+
+                
+
+
+
+
 # - as of being in integer_sum, my data will be 'flat' if they are individual elements
-# inside a tuple, as *args creates a tuple of any
+# inside a tuple, as *args creates a tuple of any length
 @flatten_lists
+@convert_strings_to_int
 def integer_sum(*args):
     return args
 

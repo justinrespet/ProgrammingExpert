@@ -52,9 +52,9 @@ def flatten_lists(func):
         returnList = []
 
         for item in args:
-            if hasattr(item, "__iter__"):
+            if hasattr(item, "__iter__") and not isinstance(item, str):
                 for item2 in item:
-                    if hasattr(item2, "__iter__"):
+                    if hasattr(item2, "__iter__") and not isinstance(item2, str):
                         for i2 in item2:
                             returnList.append(i2)
                     else:
@@ -69,18 +69,25 @@ def flatten_lists(func):
 # convert_strings_to_int
 def convert_strings_to_int(func):
     def wrapper(*args):
+        numList = []
+        for item in args:
+            if isinstance(item, str):
+                if item.isnumeric():
+                    numList.append(int(item))
+            else:
+                numList.append(item)
+        return func(*numList)
+    return wrapper
+
+# filter_integers
+def filter_integers(func):
+    def wrapper(*args):
         intList = []
         for item in args:
             if isinstance(item, int):
                 intList.append(item)
-            elif isinstance(item, str):
-                if item.isnumeric():
-                    intList.append(int(item))
-
-        return intList
+        return func(*intList)
     return wrapper
-
-                
 
 
 
@@ -88,9 +95,10 @@ def convert_strings_to_int(func):
 # - as of being in integer_sum, my data will be 'flat' if they are individual elements
 # inside a tuple, as *args creates a tuple of any length
 @flatten_lists
-@convert_strings_to_int
+# @convert_strings_to_int
+# @filter_integers
 def integer_sum(*args):
-    return args
+    return (args)
 
 
 print("***")

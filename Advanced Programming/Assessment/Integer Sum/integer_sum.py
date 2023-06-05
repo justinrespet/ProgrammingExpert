@@ -39,7 +39,6 @@ test9 = (2.4,)
 allTests = [test1, test2, test3, test4, test5, test6, test7, test8, test9]
 
 
-
 # flatten lists decorator
 # - This is going to involve the splat operator, but I'm not certain how exactly so
 # I'm going to play around with it
@@ -54,10 +53,10 @@ def flatten_lists(func):
         for item in args:
             if hasattr(item, "__iter__") and not isinstance(item, str):
                 for item2 in item:
-                    if hasattr(item2, "__iter__") and not isinstance(item2, str):
-                        for i2 in item2:
-                            returnList.append(i2)
-                    else:
+                    # if hasattr(item2, "__iter__") and not isinstance(item2, str):
+                    #     for i2 in item2:
+                    #         returnList.append(i2)
+                    # else:
                         returnList.append(item2)
             else:
                 returnList.append(item)
@@ -79,6 +78,7 @@ def convert_strings_to_int(func):
         return func(*numList)
     return wrapper
 
+
 # filter_integers
 def filter_integers(func):
     def wrapper(*args):
@@ -90,15 +90,13 @@ def filter_integers(func):
     return wrapper
 
 
-
-
 # - as of being in integer_sum, my data will be 'flat' if they are individual elements
 # inside a tuple, as *args creates a tuple of any length
 @flatten_lists
-# @convert_strings_to_int
-# @filter_integers
+@convert_strings_to_int
+@filter_integers
 def integer_sum(*args):
-    return (args)
+    return sum(args)
 
 
 print("***")

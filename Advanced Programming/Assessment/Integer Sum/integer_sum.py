@@ -53,6 +53,8 @@ def flatten_lists(func):
         for item in args:
             if hasattr(item, "__iter__") and not isinstance(item, str):
                 for item2 in item:
+                    # This block was for an iterable within an interable, but the test
+                    # conditions stipulate dumping such data
                     # if hasattr(item2, "__iter__") and not isinstance(item2, str):
                     #     for i2 in item2:
                     #         returnList.append(i2)

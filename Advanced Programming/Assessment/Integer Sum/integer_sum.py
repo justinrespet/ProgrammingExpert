@@ -25,9 +25,12 @@ You may assume all arguments passed to integer_sum will be of type float, int, s
 or list
 """
 
+# sample data
+data1 = ('1', '2', -0.9, 4, [5, 'hi', '3'])
+
+
 # flatten lists decorator
 def flatten_lists(func):
     def wrapper(*args, **kwargs):
-        
 
         return

@@ -30,7 +30,13 @@ test1 = ('1', '2', -0.9, 4, [5, 'hi', '3'])
 test2 = (2, 3, 4, -2, '2', ['1', '2', 3], 2.3)
 test3 = ()
 test4 = ('2.3', 'true', [1, 'hello', 4])
+test5 = ([1], [2], ['3', '4'], [1, 2])
+test6 = ('1', '2', '5', '6', ['1', '2'])
+test7 = ([1, [2]], [1, 2])
+test8 = ('5', '6', '2', 4)
+test9 = (2.4,)
 
+allTests = [test1, test2, test3, test4, test5, test6, test7, test8, test9]
 
 # flatten lists decorator
 # - This is going to involve the splat operator, but I'm not certain how exactly so
@@ -39,14 +45,20 @@ test4 = ('2.3', 'true', [1, 'hello', 4])
 # that to the function?
 # - from the instructions, I can assume that I will receive no iterable other than a list,
 # and that I will not receive nested lists
+
+
 def flatten_lists(func):
     def wrapper(*args):
         returnList = []
 
         for item in args:
-            if isinstance(item, list):
-                for i in item:
-                    returnList.append(i)
+            if hasattr(item, "__iter__"):
+                for item2 in item:
+                    if hasattr(item2, "__iter__"):
+                        for i2 in item2:
+                            returnList.append(i2)
+                    else:
+                        returnList.append(item2)
             else:
                 returnList.append(item)
 
@@ -62,5 +74,6 @@ def integer_sum(*args):
 
 
 print("***")
-print(integer_sum(*data3))
+for test in allTests:
+    print(integer_sum(*test))
 print("***")

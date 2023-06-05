@@ -24,3 +24,10 @@ call the decorated function with only integer arguments
 You may assume all arguments passed to integer_sum will be of type float, int, str,
 or list
 """
+
+# flatten lists decorator
+def flatten_lists(func):
+    def wrapper(*args, **kwargs):
+        
+
+        return

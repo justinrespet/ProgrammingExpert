@@ -13,3 +13,33 @@ based generator (a.k.a iterator) should be named GenerateString.
 
 You may assume that frequency >= 0
 """
+
+def generate_string(string, frequency):
+    for s in string:
+        yield s * frequency
+
+
+class GenerateString:
+    def __init__(self, string, frequency):
+       self.string = string
+       self.frequency = frequency
+
+    def __iter__(self):
+        self.count = -1
+        return self
+
+    def __next__(self):
+        self.count += 1
+        if self.count > len(self.string) - 1:
+            raise StopIteration
+        return self.string[self.count] * self.frequency
+
+
+    # Write your code here.
+
+# for i in generate_string("hello", 3):
+#     print(i,end="")
+
+genObject = GenerateString("hello", 3)
+for g in genObject:
+    print(g, end="")

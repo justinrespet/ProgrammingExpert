@@ -23,7 +23,7 @@ call the decorated function with only integer arguments
 
 You may assume all arguments passed to integer_sum will be of type float, int, str,
 or list
-"""
+""" 
 
 # sample data
 test1 = ('1', '2', -0.9, 4, [5, 'hi', '3'])
